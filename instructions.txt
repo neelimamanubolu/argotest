@@ -1,0 +1,68 @@
+Instructions to create blue green analysis resources in two different namespaces
+
+section A. To download templates into a githubrepo
+
+Pre-requisites:
+
+curl - check using curl --help
+kubectl - check using kubectl --help
+connection via kubeconfig to the cluster on which both stable and preview namespaces exist - check using kubectl get ns
+deployments in both stable and preview namespaces with the full deployment of the application - check using kubectl -n <stablens> get deploy and kubectl -n <previewns> get deploy
+a working iSD+argo installation in the same cluster, with prometheus, elasticsearch, kibana with ingress for isdui and isd argocd - check using kubectl -n <isdns> get po
+a github repo, create a new repo in github with a Readme.md file
+access to argocd ui, check - kubectl -n <isdns> get ing argocd-ingress -o jsonpath='{.spec.rules[0].host}' , use a browser to login to the ui
+add the github repo  to argocd using instructions here https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/ 
+
+Steps:
+1. clone the github repo that was added to argocd to your local machine, run
+git clone <repourl>
+2. cd into the repo root directory, run
+cd <mygithubreponame>
+3. this will download the template files and scripts to create the required files which need to be committed
+curl https://raw.githubusercontent.com/gopaljayanthi/testArgoProj/main/bg-template/start.sh -o start.sh
+chmod +x start.sh
+./start.sh
+===========================================================================================
+section B. To create yaml files from templates and commit to github repo
+
+Pre-requisites:
+section A is completed
+make sure all deployments are up and running in both stable and preview namespaces
+please use only alphabets in lower case and numbers as arguments to create.sh that will be used in the following steps
+
+Steps:
+1. cd to the root folder of the repo created in Section A
+2. for each application which needs analysis,  
+run
+chmod +x create.sh
+./create.sh <applicationName> <stable-ns> <preview-ns> <isd-ns>
+3. login to argocd host $argocdhost and look for application <applicationName> and sync it
+
+applicationName = usersupplied name, with which a folder is created which will be later committed to this github repo, a namespace and an argocd application will be created
+stable-ns: namespace where the stable version of application is running
+preview-ns: namespace  where the version being previewed before promoting as stable exists
+isd-ns: namespace where isd is installed
+3. login to argocd url and look for application with name <applicationName> used in the previous command and sync the application
+4. verify in argocd ui that a rollout, an analysis template, two services and a secret are created
+5. review template.yaml in $mydirand remove any unneeded services from the services section then add/commit/push to github
+
+===============================================================================================
+
+section C. to trigger an analysis for each time you updated the preview namespace with new images
+
+Pre-requisites:
+Section B is completed
+the argocd application is created and synched
+all pods are up and running in both baseline and canary namespace
+review template.yaml and remove any unneeded services from the services section and add/commit/push to github repo
+
+1. go to github repo, to the folder where the code was committed
+cd <reporoot>/<applicationName>
+2.  run
+chmod +x ./trigger-analysis.sh
+./trigger-analysis.sh <applicationName>
+3. login to argocd url and look for application with name <applicationName> used in the previous command and sync the application
+
+
+
+

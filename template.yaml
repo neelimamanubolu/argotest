@@ -1,0 +1,22 @@
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: isd
+spec:
+  args:
+        - name: baseline-ns
+        - name: preview-ns
+  metrics:
+    - name: isd
+      count: 1
+      initialDelay: 45s
+      provider:
+        opsmx:
+          application: multins-bg
+          user: admin
+          lifetimeMinutes: 10
+          threshold:
+            pass: 80
+            marginal: 60
+          services:
+

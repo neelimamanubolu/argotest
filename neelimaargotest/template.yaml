@@ -1,0 +1,250 @@
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: isd
+spec:
+  args:
+        - name: baseline-ns
+        - name: preview-ns
+  metrics:
+    - name: isd
+      count: 1
+      initialDelay: 45s
+      provider:
+        opsmx:
+          application: multins-bg
+          user: admin
+          lifetimeMinutes: 10
+          threshold:
+            pass: 80
+            marginal: 60
+          services:
+
+          - serviceName: canary-minio
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},canary-minio.*"
+            canaryMetricScope: "{{args.preview-ns}},canary-minio.*"
+          - serviceName: nginx-perfapplict1-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perfapplict1-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perfapplict1-deployment.*"
+          - serviceName: nginx-perfapplict2-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perfapplict2-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perfapplict2-deployment.*"
+          - serviceName: nginx-perfapplict3-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perfapplict3-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perfapplict3-deployment.*"
+          - serviceName: nginx-perfapplict4-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perfapplict4-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perfapplict4-deployment.*"
+          - serviceName: nginx-perfapplict5-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perfapplict5-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perfapplict5-deployment.*"
+          - serviceName: nginx-perftest1-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perftest1-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perftest1-deployment.*"
+          - serviceName: nginx-perftest2-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perftest2-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perftest2-deployment.*"
+          - serviceName: nginx-perftest3-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perftest3-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perftest3-deployment.*"
+          - serviceName: nginx-perftest4-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perftest4-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perftest4-deployment.*"
+          - serviceName: nginx-perftest5-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perftest5-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perftest5-deployment.*"
+          - serviceName: nginx-perftest6-deployment
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},nginx-perftest6-deployment.*"
+            canaryMetricScope: "{{args.preview-ns}},nginx-perftest6-deployment.*"
+          - serviceName: oes-audit-client
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-audit-client.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-audit-client.*"
+          - serviceName: oes-audit-service
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-audit-service.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-audit-service.*"
+          - serviceName: oes-autopilot
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-autopilot.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-autopilot.*"
+          - serviceName: oes-dashboard
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-dashboard.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-dashboard.*"
+          - serviceName: oes-datascience
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-datascience.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-datascience.*"
+          - serviceName: oes-gate
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-gate.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-gate.*"
+          - serviceName: oes-platform
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-platform.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-platform.*"
+          - serviceName: oes-sapor
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-sapor.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-sapor.*"
+          - serviceName: oes-ui
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-ui.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-ui.*"
+          - serviceName: oes-visibility
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},oes-visibility.*"
+            canaryMetricScope: "{{args.preview-ns}},oes-visibility.*"
+          - serviceName: opa
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},opa.*"
+            canaryMetricScope: "{{args.preview-ns}},opa.*"
+          - serviceName: opsmx-controller-controller1
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},opsmx-controller-controller1.*"
+            canaryMetricScope: "{{args.preview-ns}},opsmx-controller-controller1.*"
+          - serviceName: rabbitmq
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},rabbitmq.*"
+            canaryMetricScope: "{{args.preview-ns}},rabbitmq.*"
+          - serviceName: sapor-gate
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},sapor-gate.*"
+            canaryMetricScope: "{{args.preview-ns}},sapor-gate.*"
+          - serviceName: spin-clouddriver-caching
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-clouddriver-caching.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-clouddriver-caching.*"
+          - serviceName: spin-clouddriver-ro
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-clouddriver-ro.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-clouddriver-ro.*"
+          - serviceName: spin-clouddriver-ro-deck
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-clouddriver-ro-deck.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-clouddriver-ro-deck.*"
+          - serviceName: spin-clouddriver-rw
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-clouddriver-rw.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-clouddriver-rw.*"
+          - serviceName: spin-deck
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-deck.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-deck.*"
+          - serviceName: spin-echo-scheduler
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-echo-scheduler.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-echo-scheduler.*"
+          - serviceName: spin-echo-worker
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-echo-worker.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-echo-worker.*"
+          - serviceName: spin-front50
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-front50.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-front50.*"
+          - serviceName: spin-gate
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-gate.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-gate.*"
+          - serviceName: spin-igor
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-igor.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-igor.*"
+          - serviceName: spin-orca
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-orca.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-orca.*"
+          - serviceName: spin-rosco
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},spin-rosco.*"
+            canaryMetricScope: "{{args.preview-ns}},spin-rosco.*"

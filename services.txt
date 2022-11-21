@@ -1,0 +1,6 @@
+          - serviceName: SERVICENAME
+            metricTemplateName: prometheus-health-validator
+            metricTemplateVersion: "v1.0"
+            metricScopeVariables: "${namespace_key},${pod_key}"
+            baselineMetricScope: "{{args.baseline-ns}},SERVICENAME.*"
+            canaryMetricScope: "{{args.preview-ns}},SERVICENAME.*"
