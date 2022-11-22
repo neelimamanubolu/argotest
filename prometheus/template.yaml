@@ -22,7 +22,7 @@ spec:
             pass: 80
             marginal: 60
           services:
-          - metricTemplateName: promtemp
+          - metricTemplateName: promwithagent-promtempqa
             metricScopeVariables: "${namespace_key},${pod_key},${app_name}"
             baselineMetricScope: "gitpr,{{args.baseline-hash}},demoapp-issuegen"
             canaryMetricScope: "gitpr,{{args.baseline-hash}},demoapp-issuegen"
