@@ -1,0 +1,28 @@
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: sj-analysis
+spec:
+  args:
+    - name: canary-hash
+    - name: baseline-hash
+  metrics:
+    - name: sj-analysis
+      count: 1
+      initialDelay: 10s
+      provider:
+        opsmx:
+          profile: "opsmx-profile"
+          application: promtest
+          user: admin
+          lifetimeMinutes: 9
+          intervalTime: 3
+          lookBackType: growing
+          threshold:
+            pass: 80
+            marginal: 60
+          services:
+          - metricTemplateName: promtemp
+            metricScopeVariables: "${namespace_key},${pod_key},${app_name}"
+            baselineMetricScope: "gitpr,{{args.baseline-hash}},demoapp-issuegen"
+            canaryMetricScope: "gitpr,{{args.baseline-hash}},demoapp-issuegen"
