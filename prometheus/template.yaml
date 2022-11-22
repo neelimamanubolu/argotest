@@ -13,7 +13,7 @@ spec:
       provider:
         opsmx:
           profile: "opsmx-profile"
-          application: promtest
+          application: neelimaonlymetricapp
           user: admin
           lifetimeMinutes: 9
           intervalTime: 3
